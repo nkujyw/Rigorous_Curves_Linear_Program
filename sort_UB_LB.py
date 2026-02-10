@@ -20,17 +20,15 @@ def sort_file_inplace(file_path):
             
             parts = stripped_line.split()
             try:
-                # 关键：转为 int 以支持上亿的大数排序
                 num1 = int(parts[0]) 
                 data.append((num1, line))
             except ValueError:
                 print(f"  [警告] 跳过格式错误行: {stripped_line[:20]}...")
                 continue
 
-        # 3. 执行排序 (Timsort, 极其高效)
+
         data.sort(key=lambda x: x[0])
 
-        # 4. 覆盖写入原文件
         with open(file_path, 'w', encoding='utf-8') as f:
             for _, original_line in data:
                 f.write(original_line)
@@ -41,7 +39,7 @@ def sort_file_inplace(file_path):
         print(f"❌ 处理文件 {os.path.basename(file_path)} 时出错: {e}")
 
 def batch_process(folder_path):
-    # 拼接路径，获取所有 txt 文件
+
     search_pattern = os.path.join(folder_path, "*.txt")
     files = glob.glob(search_pattern)
     
@@ -62,8 +60,6 @@ def batch_process(folder_path):
     print(f"所有任务完成！")
 
 if __name__ == "__main__":
-    # 【请在这里修改你的文件夹路径】
-    # 比如: target_folder = 'D:/data/my_files' 或 './data'
     target_folder = './LB_UB_dataset' 
     
     if os.path.exists(target_folder):

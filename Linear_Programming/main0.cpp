@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <chrono>  // [新增] 用于计时
-#include <iomanip> // [新增] 用于格式化输出时间
+#include <chrono> 
+#include <iomanip> 
 
 #include "distribution.hpp"
 #include "pwdio.hpp"
@@ -19,12 +19,12 @@ std::string get_filename_stem(const std::string& path) {
 }
 
 int main() {
-    // [新增] 1. 开始计时
+
     auto start_time = std::chrono::high_resolution_clock::now();
 
     std::cout << "=== Program Started (Single Threaded) ===" << std::endl;
 
-    // 0. 设置数据集路径
+
     std::string file_path = "./dataset/000webhost_freqcount.txt";
     std::string dataset_name = "000webhost"; 
 
@@ -47,7 +47,7 @@ int main() {
 
     std::cout << "Starting calculation for " << G_list.size() << " points..." << std::endl;
 
-    // 3. 循环计算 (已改为普通单线程循环)
+    // 3. 循环计算 
     for (int i = 0; i < (int)G_list.size(); ++i) {
         int64_t current_G = G_list[i];
 
@@ -79,7 +79,6 @@ int main() {
     std::string lb_filename = dataset_name + "_LB.txt";
     std::string ub_filename = dataset_name + "_UB.txt";
 
-    // 修改点：添加 std::ios::app 参数以实现追加
     std::ofstream lb_file(lb_filename, std::ios::app);
     std::ofstream ub_file(ub_filename, std::ios::app);
 
@@ -93,7 +92,6 @@ int main() {
         std::cerr << "[Error] Could not open output files for writing." << std::endl;
     }
 
-    // [新增] 2. 结束计时并输出
     auto end_time = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end_time - start_time;
 

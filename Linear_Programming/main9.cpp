@@ -19,7 +19,7 @@ std::string get_filename_stem(const std::string& path) {
 int main() {
     std::cout << "=== Program Started (Single Threaded) ===" << std::endl;
 
-    // 0. 设置数据集路径
+    
     std::string file_path = "./dataset/000webhost_freqcount.txt";
     std::string dataset_name = "000webhost"; 
 
@@ -42,7 +42,7 @@ int main() {
 
     std::cout << "Starting calculation for " << G_list.size() << " points..." << std::endl;
 
-    // 3. 循环计算 (已改为普通单线程循环)
+    // 3. 循环计算
     for (int i = 0; i < (int)G_list.size(); ++i) {
         int64_t current_G = G_list[i];
 
@@ -74,7 +74,7 @@ int main() {
     std::string lb_filename = dataset_name + "_LB.txt";
     std::string ub_filename = dataset_name + "_UB.txt";
 
-    // 修改点：添加 std::ios::app 参数以实现追加
+   
     std::ofstream lb_file(lb_filename, std::ios::app);
     std::ofstream ub_file(ub_filename, std::ios::app);
 
