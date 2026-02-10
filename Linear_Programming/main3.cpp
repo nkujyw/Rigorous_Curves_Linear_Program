@@ -33,7 +33,7 @@ int main() {
     std::cout << "[Info] File read successfully. N = " << dist.N << std::endl;
 
     // 2. 定义参数
-    std::vector<int64_t> G_list = {100000000};
+    std::vector<int64_t> G_list = {256, 512, 1024, 2048};
     double err = 0.01;
     
     // 准备容器存储结果

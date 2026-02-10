@@ -61,12 +61,20 @@ double LP_lower(dist_t& dist, int64_t G, std::vector<double>& mesh, double q, in
 
     // constraint (1)
     GRBLinExpr constr_1_lhs = 0.0;
-    double scale = (G/mesh[idx-1]>=1.0) ? 1.0/G : mesh[idx-1];
+    double scale = 0.0;
+    if(idx<=l){
+      scale=(G/mesh[idx-1]>=1.0) ? 1.0/G : mesh[idx-1];
+    }
+    else{
+      scale=1.0/G;
+    }
     for (int i=0; i<idx-1; ++i) {
       constr_1_lhs += hx_vars[i] * scale / mesh[i];
     }
     if (idx <= l) {
       constr_1_lhs += c_var * scale / mesh[idx-1];
+    }else {
+      constr_1_lhs += c_var;
     }
     GRBLinExpr constr_1_rhs = G * scale;
     model.addConstr(constr_1_lhs, GRB_EQUAL, constr_1_rhs, "1) (sum{j<idx} h_j) + c == G");
@@ -173,7 +181,12 @@ double LP_upper(dist_t& dist, int64_t G, std::vector<double>& mesh, double q, in
 
     // constraint (1)
     GRBLinExpr constr_1_lhs = 0.0;
-    double scale = (G/mesh[idx-1]>=1.0) ? 1.0/G : mesh[idx-1];
+    double scale = 0.0;
+    if (idx <= l) {
+    scale = (G/mesh[idx-1]>=1.0) ? 1.0/G : mesh[idx-1];
+    } else {
+    scale = (G/mesh[l-1]>=1.0) ? 1.0/G : mesh[l-1];
+    }
     for (int i=0; i<idx-1; ++i) {
       constr_1_lhs += hx_vars[i] * scale / mesh[i];
     }
